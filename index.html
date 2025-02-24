@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurswahl</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const schuelerListe = ["Max Mustermann", "Lisa Beispiel", "Jan Schüler"];
+            const nameSelect = document.getElementById("schuelerName");
+            
+            schuelerListe.forEach(name => {
+                let option = document.createElement("option");
+                option.value = name;
+                option.textContent = name;
+                nameSelect.appendChild(option);
+            });
+        });
+        
+        function updateChoices() {
+            let eanChoice = document.querySelector('input[name="ean"]:checked').value;
+            let eanInfo = document.getElementById("eanInfo");
+            if (eanChoice === "M eAN") {
+                eanInfo.textContent = "Zuordnung: D gAN (Grundkurs) | Prüfungsfach: Mathematik";
+            } else {
+                eanInfo.textContent = "Zuordnung: M gAN (Grundkurs) | Prüfungsfach: Deutsch";
+            }
+        }
+        
+        function updateLabCourse() {
+            let scienceChoice = document.querySelector('input[name="science"]:checked').value;
+            let labInfo = document.getElementById("labInfo");
+            if (scienceChoice === "Physik") {
+                labInfo.textContent = "Zuordnung: Physikalische Laborübungen";
+            } else {
+                labInfo.textContent = "Zuordnung: Chemische Laborübungen";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Kurswahl für Schüler</h2>
+    <label for="schuelerName">Wähle deinen Namen:</label>
+    <select id="schuelerName">
+        <option value="">Bitte wählen</option>
+    </select>
+    
+    <h3>Pflichtfächer</h3>
+    <p>Englisch, Informatik, Sport</p>
+    
+    <h3>Wahl: Mathematik oder Deutsch eAN</h3>
+    <label><input type="radio" name="ean" value="M eAN" onclick="updateChoices()"> M eAN</label>
+    <label><input type="radio" name="ean" value="D eAN" onclick="updateChoices()"> D eAN</label>
+    <p id="eanInfo">Bitte wählen...</p>
+    
+    <h3>Wahl: Physik oder Chemie</h3>
+    <label><input type="radio" name="science" value="Physik" onclick="updateLabCourse()"> Physik</label>
+    <label><input type="radio" name="science" value="Chemie" onclick="updateLabCourse()"> Chemie</label>
+    <p id="labInfo">Bitte wählen...</p>
+    
+    <h3>Zweite Fremdsprache</h3>
+    <label><input type="radio" name="fremdsprache" value="Ja"> Ja</label>
+    <label><input type="radio" name="fremdsprache" value="Nein"> Nein</label>
+    
+    <h3>Religionsunterricht</h3>
+    <label><input type="radio" name="religion" value="evangelisch"> Evangelisch</label>
+    <label><input type="radio" name="religion" value="katholisch"> Katholisch</label>
+    <label><input type="radio" name="religion" value="ethik"> Ethik</label>
+    
+    <h3>Wahlfächer J1</h3>
+    <label><input type="checkbox" name="wahlJ1" value="Psychologie"> Psychologie</label>
+    <label><input type="checkbox" name="wahlJ1" value="Philosophie"> Philosophie</label>
+    <label><input type="checkbox" name="wahlJ1" value="Seminarkurs" id="seminarkurs" onclick="toggleSeminarChoice()"> Seminarkurs</label>
+    
+    <div id="seminarOption" style="display: none;">
+        <h4>Seminarkurs Durchführung</h4>
+        <label><input type="radio" name="seminar" value="intern"> Intern</label>
+        <label><input type="radio" name="seminar" value="extern"> Extern</label>
+    </div>
+    
+    <h3>Wahlfächer J1 & J2</h3>
+    <label><input type="checkbox" name="wahlJ12" value="Mathe +"> Mathe +</label>
+    <label><input type="checkbox" name="wahlJ12" value="Bildende Kunst"> Bildende Kunst</label>
+    <label><input type="checkbox" name="wahlJ12" value="Musik"> Musik</label>
+    
+    <button onclick="submitForm()">Speichern</button>
+    
+    <script>
+        function toggleSeminarChoice() {
+            let seminar = document.getElementById("seminarkurs");
+            let seminarOption = document.getElementById("seminarOption");
+            seminarOption.style.display = seminar.checked ? "block" : "none";
+        }
+        
+        function submitForm() {
+            let name = document.getElementById("schuelerName").value;
+            alert("Kurswahl von " + name + " gespeichert!");
+        }
+    </script>
+</body>
+</html>
